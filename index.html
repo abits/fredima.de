@@ -4,36 +4,84 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fredima.de</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Segoe UI', 'Tahoma', 'Geneva', 'Verdana', 'sans-serif'],
+                    },
+                    animation: {
+                        'grid-move': 'gridMove 20s linear infinite',
+                        'glow': 'glow 3s ease-in-out infinite alternate',
+                        'motd-glow': 'motdGlow 3s ease-in-out infinite alternate',
+                        'gradient-shift': 'gradientShift 6s ease-in-out infinite',
+                        'floating': 'floating 3s ease-in-out infinite',
+                        'word-fade': 'wordFadeIn 0.6s ease-in-out forwards',
+                    },
+                    keyframes: {
+                        gridMove: {
+                            '0%': { transform: 'translate(0, 0)' },
+                            '100%': { transform: 'translate(50px, 50px)' },
+                        },
+                        glow: {
+                            '0%': { filter: 'drop-shadow(0 0 20px rgba(236, 72, 153, 0.5))' },
+                            '100%': { filter: 'drop-shadow(0 0 40px rgba(34, 211, 238, 0.8))' },
+                        },
+                        motdGlow: {
+                            '0%': { filter: 'drop-shadow(0 0 10px rgba(236, 72, 153, 0.3))' },
+                            '100%': { filter: 'drop-shadow(0 0 20px rgba(34, 211, 238, 0.5))' },
+                        },
+                        gradientShift: {
+                            '0%': { backgroundPosition: '0% center' },
+                            '50%': { backgroundPosition: '100% center' },
+                            '100%': { backgroundPosition: '0% center' },
+                        },
+                        floating: {
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        wordFadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(10px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                    },
+                },
+            },
+        }
+    </script>
     <link rel="stylesheet" href="styles.css">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="main.js"></script>
 </head>
-<body>
-    <div class="background" aria-hidden="true"></div>
-    <div class="grid" aria-hidden="true"></div>
+<body class="font-sans bg-[#0a0a0a] text-white overflow-x-hidden min-h-screen">
+    <div class="fixed inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(236,72,153,0.1)_0%,transparent_50%),radial-gradient(circle_at_80%_80%,rgba(34,211,238,0.1)_0%,transparent_50%)] z-0" aria-hidden="true"></div>
+    <div class="grid-overlay fixed inset-0 z-[1] animate-grid-move" aria-hidden="true"></div>
     
-    <main class="container">
-        <header>
-            <p class="motd" role="status" aria-live="polite" x-data="motd" x-text="message"></p>
-            <h1 class="logo">fredima.de</h1>
-            <p class="subtitle">Digital Services</p>
+    <main class="relative z-[2] max-w-[1200px] mx-auto p-5 flex flex-col justify-center items-center py-24">
+        <header class="text-center">
+            <p class="motd text-xl font-medium tracking-wider opacity-85 block text-center mb-4 whitespace-nowrap" 
+               role="status" aria-live="polite" x-data="motd" x-text="message"></p>
+            <h1 class="logo text-[clamp(3rem,12vw,8rem)] font-black lowercase -tracking-[0.05em] mb-8 text-center relative animate-glow">fredima.de</h1>
+            <p class="text-[clamp(0.9rem,2vw,1.2rem)] text-neutral-400 mb-16 text-center tracking-[0.2em] uppercase">Digital Services</p>
         </header>
         
-        <nav class="links" aria-label="Services">
-            <a href="https://panel2.fredima.de" class="link-card floating delay-1">
-                <span class="link-title">Hosting Service</span>
-                <span class="link-url">panel.fredima.de</span>
+        <nav class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-[900px] px-5" aria-label="Services">
+            <a href="https://panel2.fredima.de" class="link-card group bg-white/5 border-2 border-transparent rounded-2xl p-8 no-underline text-white transition-all duration-300 relative overflow-hidden backdrop-blur-[10px] hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(236,72,153,0.4)] animate-floating" style="animation-delay: 0.2s">
+                <span class="link-title block text-2xl font-bold mb-2">Hosting Service</span>
+                <span class="text-sm text-neutral-400 font-mono">panel.fredima.de</span>
             </a>
             
-            <a href="https://next.fredima.de" class="link-card floating delay-2">
-                <span class="link-title">Nextcloud</span>
-                <span class="link-url">next.fredima.de</span>
+            <a href="https://next.fredima.de" class="link-card link-card-cyan group bg-white/5 border-2 border-transparent rounded-2xl p-8 no-underline text-white transition-all duration-300 relative overflow-hidden backdrop-blur-[10px] hover:-translate-y-1 hover:shadow-[0_20px_40px_rgba(34,211,238,0.4)] animate-floating" style="animation-delay: 0.4s">
+                <span class="link-title-cyan block text-2xl font-bold mb-2">Nextcloud</span>
+                <span class="text-sm text-neutral-400 font-mono">next.fredima.de</span>
             </a>
         </nav>
 
-        <footer class="footer-text" x-data="footerText">
+        <footer class="mt-40 max-w-[800px] text-center text-xl leading-relaxed text-neutral-500 min-h-[150px]" x-data="footerText">
             <template x-for="word in words" :key="word.text + word.delay">
-                <span class="word" :style="'animation-delay: ' + word.delay + 's'" x-text="word.text + ' '"></span>
+                <span class="opacity-0 animate-word-fade" :style="'animation-delay: ' + word.delay + 's'" x-text="word.text + ' '"></span>
             </template>
         </footer>
     </main>
