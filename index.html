@@ -1,40 +1,39 @@
 <!DOCTYPE html>
-
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>fredima.de</title>
     <link rel="stylesheet" href="styles.css">
-
-
 </head>
 <body>
-    <div class="background"></div>
-    <div class="grid"></div>
-<div class="container">
-    <div class="motd" id="motd"></div>
-    <h1 class="logo">fredima.de</h1>
-    <p class="subtitle">Digital Services</p>
+    <div class="background" aria-hidden="true"></div>
+    <div class="grid" aria-hidden="true"></div>
     
-    <div class="links">
-        <a href="https://panel2.fredima.de" class="link-card floating delay-1">
-            <div class="link-title">Hosting Service</div>
-            <div class="link-url">panel.fredima.de</div>
-        </a>
+    <main class="container">
+        <header>
+            <p class="motd" id="motd" role="status" aria-live="polite"></p>
+            <h1 class="logo">fredima.de</h1>
+            <p class="subtitle">Digital Services</p>
+        </header>
         
-        <a href="https://next.fredima.de" class="link-card floating delay-2">
-            <div class="link-title">Nextcloud</div>
-            <div class="link-url">next.fredima.de</div>
-        </a>
-        
-    </div>
+        <nav class="links" aria-label="Services">
+            <a href="https://panel2.fredima.de" class="link-card floating delay-1">
+                <span class="link-title">Hosting Service</span>
+                <span class="link-url">panel.fredima.de</span>
+            </a>
+            
+            <a href="https://next.fredima.de" class="link-card floating delay-2">
+                <span class="link-title">Nextcloud</span>
+                <span class="link-url">next.fredima.de</span>
+            </a>
+        </nav>
 
-    <div class="footer-text" id="footerText">
-        Hi! My name is fredi and I am a 14 year old developer from Germany. I love playing Minecraft and working on cool projects! Let's create something awesome together!
-    </div>
-</div>
+        <footer class="footer-text" id="footerText">
+            Hi! My name is fredi and I am a 14 year old developer from Germany. I love playing Minecraft and working on cool projects! Let's create something awesome together!
+        </footer>
+    </main>
 
-<script src="main.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
